@@ -1,0 +1,29 @@
+\begin{figure*}[hbt]
+\ifnextchar[{\eatarg}{}
+
+\centering
+\includegraphics{task.png}
+\caption{\label{fig:task} Caption}
+\end{figure*}
+\begin{figure*}[hbt]
+\ifnextchar[{\eatarg}{}
+
+\centering
+\includegraphics{FinalReport_files/figure-latex/behavioral-1.pdf}
+\caption{\label{fig:behavioral}Behavioral results. \textbf{A:} Distractibility by subject. \textbf{B:} Errorbars represent within-subjects design corrected 95 \% confidence intervals. Probabilities for distraction were obtained by dividing the number of trials with an gaze on the video by the number of trials, separately for each condition.}
+\end{figure*}
+\begin{figure*}[hbt]
+\ifnextchar[{\eatarg}{}
+
+\includegraphics[width=0.9\linewidth]{FinalReport_files/figure-latex/tuning-1} \caption{Tuning results for all models. The red circle represents the best tune out of the hyperparameter grid specified. Each row represent the tuning results for the regularized regression types (Lasso Regression: A, B; Ridge Regression: C, D; Elastic Net: E, F). Figures in the left column show the tuning results for the respective models including frame embeddings as predictors (A, C, E) or without frame embeddings as predictors (B, D, F). Red circles indicate the best tune.}\label{fig:tuning}
+\end{figure*}
+\begin{figure*}[hbt]
+\ifnextchar[{\eatarg}{}
+
+\includegraphics[width=0.95\linewidth]{FinalReport_files/figure-latex/fit-overall-1} \caption{Performance of the regularized regression models with and without frame embeddings as predictors on the test set (10 \% of the data). Performance on all metrics is better if frame embeddings are available as predictors on all metrics. This effect is emphasized for the true positive and false negative rate. Performance differences between regularized regression type are negligible for accuracy, true negative and false positive rates and are more pronounced for true positive rates and false negative rates.}\label{fig:fit-overall}
+\end{figure*}
+\begin{figure*}[hbt]
+\ifnextchar[{\eatarg}{}
+
+\includegraphics[width=0.95\linewidth]{FinalReport_files/figure-latex/fit-ID-1} \caption{Performance of the regularized regression models with and without frame embeddings as predictors on the test set (10 \% of the data), by subject. Note the differences in performance between subjects.}\label{fig:fit-ID}
+\end{figure*}
