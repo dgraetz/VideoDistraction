@@ -1,0 +1,110 @@
+\begin{table*}[hbt]
+\ifnextchar[{\eatarg}{}
+[tbp]
+
+\begin{center}
+\begin{threeparttable}
+
+\caption{\label{tab:descriptives}Mean and standard deviation of the outcome variable in the final dataset, separate for each condition, computed on the frame-level.}
+
+\begin{tabular}{llll}
+\toprule
+ITI & \multicolumn{1}{c}{RewardCond} & \multicolumn{1}{c}{M} & \multicolumn{1}{c}{SD}\\
+\midrule
+0.5 & high & 0.16 & 0.36\\
+0.5 & low & 0.15 & 0.36\\
+1.5 & high & 0.16 & 0.37\\
+1.5 & low & 0.30 & 0.46\\
+\bottomrule
+\end{tabular}
+
+\end{threeparttable}
+\end{center}
+
+\end{table*}
+\begin{table*}[hbt]
+\ifnextchar[{\eatarg}{}
+[tbp]
+
+\begin{center}
+\begin{threeparttable}
+
+\caption{\label{tab:eyelink-raw}Example of 5 rows of the raw data within the eye-tracking file.}
+
+\begin{tabular}{lll}
+\toprule
+time & \multicolumn{1}{c}{xp} & \multicolumn{1}{c}{yp}\\
+\midrule
+5887302 & 986.00 & 606.00\\
+5887303 & 985.10 & 606.50\\
+5887304 & 984.20 & 606.60\\
+5887305 & 983.10 & 606.40\\
+5887306 & 983.00 & 606.20\\
+\bottomrule
+\end{tabular}
+
+\end{threeparttable}
+\end{center}
+
+\end{table*}
+\begin{table*}[hbt]
+\ifnextchar[{\eatarg}{}
+[tbp]
+
+\begin{center}
+\begin{threeparttable}
+
+\caption{\label{tab:eyelink-msg}Example of 10 rows of the message data within the eye-tracking file.}
+
+\begin{tabular}{ll}
+\toprule
+time & \multicolumn{1}{c}{text}\\
+\midrule
+6752096 & BLOCK7\_TRIAL9\_FIXCROSS\_ONSET\\
+6752612 & BLOCK7\_TRIAL9\_FIXCROSS\_END\\
+6752614 & BLOCK7\_TRIAL9\_STIMONSET\\
+6752616 & BLOCK7\_TRIAL9\_VIDEOSTART\\
+6752646 & BLOCK7\_TRIAL9\_FRAME1\\
+6752680 & BLOCK7\_TRIAL9\_FRAME2\\
+6752712 & BLOCK7\_TRIAL9\_FRAME3\\
+6752746 & BLOCK7\_TRIAL9\_FRAME4\\
+6752779 & BLOCK7\_TRIAL9\_FRAME5\\
+6752812 & BLOCK7\_TRIAL9\_FRAME6\\
+6752846 & BLOCK7\_TRIAL9\_FRAME7\\
+\bottomrule
+\end{tabular}
+
+\end{threeparttable}
+\end{center}
+
+\end{table*}
+\begin{table*}[hbt]
+\ifnextchar[{\eatarg}{}
+[tbp]
+
+\begin{center}
+\begin{threeparttable}
+
+\caption{\label{tab:datatable}The first ten rows of the training data set without frame embeddings. The training data set with frame embeddings is identical, but has 512 more columns in the format VX (where X stands for a number in the range [1; 512]) for the frame embeddings.}
+
+\begin{tabular}{lllll}
+\toprule
+time & \multicolumn{1}{c}{ID} & \multicolumn{1}{c}{ITI} & \multicolumn{1}{c}{RewardCond} & \multicolumn{1}{c}{isInVid}\\
+\midrule
+550 & 400 & 0.5 & low & no\_check\\
+583 & 400 & 0.5 & low & no\_check\\
+617 & 400 & 0.5 & low & no\_check\\
+650 & 400 & 0.5 & low & no\_check\\
+683 & 400 & 0.5 & low & no\_check\\
+716 & 400 & 0.5 & low & no\_check\\
+750 & 400 & 0.5 & low & no\_check\\
+783 & 400 & 0.5 & low & no\_check\\
+850 & 400 & 0.5 & low & no\_check\\
+916 & 400 & 0.5 & low & no\_check\\
+\bottomrule
+\end{tabular}
+
+\end{threeparttable}
+\end{center}
+
+\end{table*}
