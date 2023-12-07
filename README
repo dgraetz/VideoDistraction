@@ -1,0 +1,30 @@
+This project aims to predict distractibility from video frames.
+The data files for this project are too large, so the github repo 
+(https://github.com/dgraetz/VideoDistraction) mainly hosts
+the report and some example stimuli. 
+
+For full access to the data, please visit the google drive link in the Report. 
+It has the full repo for 100 % reproducibility.
+https://drive.google.com/drive/folders/1jubBPuDnMHI2Z1b7GBoCmmmd2og4UGZF?usp=sharing
+
+Workflow: 
+1) Executing the report should work. It reads in preprocessed data saved as RDS and
+   an example eye-tracking file. This part is 100 % reproducible on using the 
+   Google Drive repo.
+2) Not fully reproducible are are the video embeddings because the stimuli I can 
+   host in this repo are limited. The code is available in get_videoembeddings,
+   containing code for dividing a video into individual frames 
+   (get_videoembeddings/makeframes.R) and the script to get the embeddings 
+   (get_videoembeddings/python_img_embeddings.R). All embeddings for the
+   current data are saved in get_videoembeddings/results.
+3) To run the regression models, you may rely on preprocessed data and use the 
+   analysis/models.R script. It produces the RDS files containing the train and test
+   data (analysis/results/train_data.RDS; analysis/results/test_data.RDS) and the models
+   with and without frame embeddings as predictors (analysis/results/caret_img_content.RDS,
+   analysis/results/caret_no_img_content.RDS).
+   If you would like to look at the preprocessing script, analysis/prepData.R is
+   the script that creates the RDS file for preprocessed data analysis/results/all_subj.RDS.
+   
+   
+Author: Dominik Graetz
+Contact: dgrtz@uoregon.edu
