@@ -24,7 +24,7 @@ abstract: |
    Link to Google Drive with all data: https://drive.google.com/drive/folders/1jubBPuDnMHI2Z1b7GBoCmmmd2og4UGZF?usp=sharing
   
 keywords          : "Machine Learning, Lasso Regression, Regularized Regression, Elastic Net, Distractibility, social media"
-wordcount         : "3119"
+wordcount         : "2872"
 
 bibliography      : "references.bib"
 
@@ -68,8 +68,6 @@ knitr::opts_knit$set(root.dir = here::here())
 ```
 
 # Research Problem
-
-> Research problem (10pts): Describe the task you want to achieve. What is the outcome of interest? What are you trying to predict? Why is it important? What are the potential benefits of having a predictive model for this outcome?
 
 In every moment, humans have the choice between two different actions: *exploitation*, in which they continue engaging in a rewarding task. Alternatively, when in the *exploration* mode, humans search the environment for potentially more rewarding, alternative things to do. The factors that determine disengagement from a rewarding task and exploratory behavior are unclear. Previous research suggests that switches from exploitation to exploration can be caused by increasing task uncertainty, elevated error rate in the current task, and lower task reward, or, together, task utility [for overviews, see @astonjones2005; @cohen2007]. Here, I aim to predict human distractibility from short videos while they are working on a rewarding task. To achieve this, I conducted an experiment in which task utility (i. e., reward) is systematically manipulated between experimental blocks. Eye-tracking reveals overt shifts of attention - and this is the outcome I aim to predict from these two experimental variables: specifically, whether subjects look at the videos, or not. Additionally, I obtain frame-by-frame embeddings from ResNet-18 as predictors.
 
@@ -232,8 +230,6 @@ embed_range <- all %>%
 papaja::apa_table(descriptives, caption = "Mean and standard deviation of the outcome variable in the final dataset, separate for each condition, computed on the frame-level.")
 ```
 
-> Description of the data (15pts): Describe core features of the data, any additional features you produced from existing features and how, basic descriptive statistics about these features, and any missing data analysis you conduct. The description should be sufficiently clear that the instructor understands all the variables included in your modeling.
-
 The final data set consists of `r nrow(test$no_img_content) + nrow(train$no_img_content)` observations. Each observation represents a video frame presented in the experiment with the following (model-relevant) columns: ID, Time stamp, ITI condition, Reward condition, the 512 embeddings (all predictors) and the outcome, whether the gaze was on the video (coded as 1) or not (coded as 0). For example observations without embeddings, see Table \@ref(tab:datatable). For mean and standard deviation information of the outcome per condition, refer to Table \@ref(tab:descriptives). Embeddings across all images and vector positions were on a range of [`r round(min(embed_range), 2)`; `r round(max(embed_range), 2)`]
 
 
@@ -256,8 +252,6 @@ papaja::apa_table(train$no_img_content %>% head(10) %>% mutate(time = as.integer
 
 
 # Description of the models
-
-> Apply at least three different modeling approaches to predict the outcome in the dataset. Describe any specific setting used during the model fitting (e.g., hyperparameter tuning, cross-validation). Also, discuss how you plan to evaluate model performance.
 
 Models were built in R [@R] using R Studio [@RStudio] with the packages caret [@caret], and glmnet [@glmnet]. Ridge regression, lasso regression and elastic net models were selected as predictive model candidates. All numeric predictors were standardized and factors were one-hot coded (subject ID, inter-trial-interval condition, reward condition). Models were trained on 90 % of the data with 10-fold cross-validation and evaluated on the remaining 10 % test set. For hyperparameter tuning, the respective parameters were initially selected to span a relatively wide possible range at which model fit is expected to be improved. Models were generated multiple times, each time reducing the range of the respective hyperparameters to the range at which model improvement was visible in the previous iteration to find the best hyperparameters. LogLoss was the metric by which the final model was selected for each procedure. Model performance on the test set will evaluated based on overall accuracy, false positive, false negative, true positive and true negative rates.
 
@@ -302,21 +296,6 @@ ggplot(logistic_img_content$rr$results, aes(x = lambda, y = logLoss))+
   theme(axis.text.x = element_text(angle = 45, hjust = 1),
         axis.title.x= element_blank())
 
-# tuning_plots$img_en <- 
-# ggplot(logistic_img_content$en$results, aes(x = lambda, y = logLoss, color = alpha, group = alpha))+
-#   geom_point()+
-#   geom_line()+
-#   geom_point(data = get_best_tune(logistic_img_content$en), color = "red", size = 5, shape = 1)+
-#   scale_y_continuous(labels=scaleFUN)+
-#   labs(y = "Elastic Net\nLogLoss")+
-#   geom_text(data = logistic_img_content$en$results %>% filter(lambda == 0.001),
-#             aes(x = 0.00103, y = logLoss, label = round(alpha, 2)), hjust = 0, size = 3, color = "black")+
-#   annotate("text", x = 0.00103, y = 0.2897, label = "alpha", hjust = 0, size = 3, color = "black")+
-#   scale_color_viridis_c(end = 0.95)+
-#   theme_classic()+
-#   theme(legend.position = "none",
-#         axis.text.x = element_text(angle = 45, hjust = 1))
-
 tuning_plots$img_en <- 
 ggplot(logistic_img_content$en$results, aes(x = lambda, y = logLoss, color = alpha, group = alpha))+
   geom_point()+
@@ -329,7 +308,7 @@ ggplot(logistic_img_content$en$results, aes(x = lambda, y = logLoss, color = alp
   theme(legend.position = c(0.2, .6),
         legend.key.height = unit(0.1, "in"),
         axis.text.x = element_text(angle = 45, hjust = 1))
-#tuning_plots$img_en 
+
 
 #########################
 
@@ -391,8 +370,6 @@ predictions <- data.frame(
   pred_no_img_lr = predict(logistic_no_img_content$lr, test$img_content),
   pred_no_img_rr = predict(logistic_no_img_content$rr, test$img_content),
   chance         = sample(c("check", "no_check"), nrow(test$img_content), replace = TRUE))
-# predictions <- predictions %>%
-#   mutate_at(vars(starts_with("pred_")), ~ifelse(. == "check", 1, 0))
 
 test_data <- cbind(predictions, test$img_content)
 
@@ -563,8 +540,6 @@ ggplot(measures_ID %>% filter(predictors != "chance"), aes(x = predictors, y = v
 
 ```
 
-> Model fit (20pts): Provide the results of your model evaluation. Compare and contrasts results from different modeling approaches, including a discussion of model performance. Discuss your final model selection and the evidence that led you to this selection. If it is a classification problem, how did you choose a cut-off point for binary predictions? Did you consider different cut-off points?
-
 The models were tested on 10 % data that was withheld from training the models. Accuracy, true positive, false positive, true negative and false negative rates were calculated for the entire test set, separate for regularized regression type (ridge regression vs. lasso regression vs. and elastic net) and predictors included (including frame embeddings vs. not including frame embeddings). Additionally, these metrics are also calculated within individuals so that model performance can be evaluated per subject.
 
 ## Overall performance
@@ -579,8 +554,6 @@ Additionally, it should be noted that the relatively high accuracy score cited a
 Model performance per individual for all models with and without frames as predictors is presented in Figure \@ref(fig:fit-ID). There is a significant amount of between-subjects variability in how well the models can predict distractibility on a frame-by-frame basis. The range for accuracy is [`r round(measures_ID[measures_ID$measure == "Acc",]$value %>% min(), 2)`; `r round(measures_ID[measures_ID$measure == "Acc",]$value %>% max(), 2)`], for the true positive rate [`r round(measures_ID[measures_ID$measure == "TP",]$value %>% min(), 2)`; `r round(measures_ID[measures_ID$measure == "TP",]$value %>% max(), 2)`], for the true negative rate [`r round(measures_ID[measures_ID$measure == "TN",]$value %>% min(), 2)`; `r round(measures_ID[measures_ID$measure == "TN",]$value %>% max(), 2)`], for the false positive rate [`r round(measures_ID[measures_ID$measure == "FP",]$value %>% min(), 2)`; `r round(measures_ID[measures_ID$measure == "FP",]$value %>% max(), 2)`], and for the false negative rate [`r round(measures_ID[measures_ID$measure == "FN",]$value %>% min(), 2)`; `r round(measures_ID[measures_ID$measure == "FN",]$value %>% max(), 2)`] across all models. Thus, for some subjects the model does relatively well, for some it does poorly. Interestingly, for nearly all subjects the model with frame embeddings predicts distractibility much better on all metrics.
 
 # Discussion & Conclusions
-
-> Discussion/Conclusion (25pts): Discuss and summarize what you learned. Which variables were the most important in predicting your outcome? Was this expected or surprising? Were different models close in performance, or were there significant gaps in performance from different modeling approaches? Are there practical/applied findings that could help the field of your interest based on your work? If yes, what are they?
 
 ```{r incr-decimals, include=FALSE}
 custom_print <- op(d = 4)

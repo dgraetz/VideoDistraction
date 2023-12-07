@@ -158,7 +158,7 @@
     {}{\InnerPatchFailed}%
   }
 {}{\PatchFailed}
-\keywords{Machine Learning, Lasso Regression, Regularized Regression, Elastic Net, Distractibility, social media\newline\indent Word count: 3119}
+\keywords{Machine Learning, Lasso Regression, Regularized Regression, Elastic Net, Distractibility, social media\newline\indent Word count: 2872}
 \DeclareDelayedFloatFlavor{ThreePartTable}{table}
 \DeclareDelayedFloatFlavor{lltable}{table}
 \DeclareDelayedFloatFlavor*{longtable}{table}
@@ -212,10 +212,6 @@ Link to Google Drive with all data: \url{https://drive.google.com/drive/folders/
 
 \hypertarget{research-problem}{%
 \section{Research Problem}\label{research-problem}}
-
-\begin{quote}
-Research problem (10pts): Describe the task you want to achieve. What is the outcome of interest? What are you trying to predict? Why is it important? What are the potential benefits of having a predictive model for this outcome?
-\end{quote}
 
 In every moment, humans have the choice between two different actions: \emph{exploitation}, in which they continue engaging in a rewarding task. Alternatively, when in the \emph{exploration} mode, humans search the environment for potentially more rewarding, alternative things to do. The factors that determine disengagement from a rewarding task and exploratory behavior are unclear. Previous research suggests that switches from exploitation to exploration can be caused by increasing task uncertainty, elevated error rate in the current task, and lower task reward, or, together, task utility (for overviews, see Aston-Jones \& Cohen, 2005; Cohen, McClure, \& Yu, 2007). Here, I aim to predict human distractibility from short videos while they are working on a rewarding task. To achieve this, I conducted an experiment in which task utility (i. e., reward) is systematically manipulated between experimental blocks. Eye-tracking reveals overt shifts of attention - and this is the outcome I aim to predict from these two experimental variables: specifically, whether subjects look at the videos, or not. Additionally, I obtain frame-by-frame embeddings from ResNet-18 as predictors.
 
@@ -298,10 +294,6 @@ ITI & \multicolumn{1}{c}{RewardCond} & \multicolumn{1}{c}{M} & \multicolumn{1}{c
 \end{center}
 
 \end{table}
-
-\begin{quote}
-Description of the data (15pts): Describe core features of the data, any additional features you produced from existing features and how, basic descriptive statistics about these features, and any missing data analysis you conduct. The description should be sufficiently clear that the instructor understands all the variables included in your modeling.
-\end{quote}
 
 The final data set consists of 87877.00 observations. Each observation represents a video frame presented in the experiment with the following (model-relevant) columns: ID, Time stamp, ITI condition, Reward condition, the 512 embeddings (all predictors) and the outcome, whether the gaze was on the video (coded as 1) or not (coded as 0). For example observations without embeddings, see Table \ref{tab:datatable}. For mean and standard deviation information of the outcome per condition, refer to Table \ref{tab:descriptives}. Embeddings across all images and vector positions were on a range of {[}0.00; 13.78{]}
 
@@ -391,10 +383,6 @@ time & \multicolumn{1}{c}{ID} & \multicolumn{1}{c}{ITI} & \multicolumn{1}{c}{Rew
 \hypertarget{description-of-the-models}{%
 \section{Description of the models}\label{description-of-the-models}}
 
-\begin{quote}
-Apply at least three different modeling approaches to predict the outcome in the dataset. Describe any specific setting used during the model fitting (e.g., hyperparameter tuning, cross-validation). Also, discuss how you plan to evaluate model performance.
-\end{quote}
-
 Models were built in R (R Core Team, 2023) using R Studio (Posit team, 2023) with the packages caret (Kuhn \& Max, 2008), and glmnet (Tay, Narasimhan, \& Hastie, 2023). Ridge regression, lasso regression and elastic net models were selected as predictive model candidates. All numeric predictors were standardized and factors were one-hot coded (subject ID, inter-trial-interval condition, reward condition). Models were trained on 90 \% of the data with 10-fold cross-validation and evaluated on the remaining 10 \% test set. For hyperparameter tuning, the respective parameters were initially selected to span a relatively wide possible range at which model fit is expected to be improved. Models were generated multiple times, each time reducing the range of the respective hyperparameters to the range at which model improvement was visible in the previous iteration to find the best hyperparameters. LogLoss was the metric by which the final model was selected for each procedure. Model performance on the test set will evaluated based on overall accuracy, false positive, false negative, true positive and true negative rates.
 
 \hypertarget{model-fit}{%
@@ -411,10 +399,6 @@ Models were built in R (R Core Team, 2023) using R Studio (Posit team, 2023) wit
 \begin{figure}
 \includegraphics[width=0.95\linewidth]{FinalReport_files/figure-latex/fit-ID-1} \caption{Performance of the regularized regression models with and without frame embeddings as predictors on the test set (10 \% of the data), by subject. Note the differences in performance between subjects.}\label{fig:fit-ID}
 \end{figure}
-
-\begin{quote}
-Model fit (20pts): Provide the results of your model evaluation. Compare and contrasts results from different modeling approaches, including a discussion of model performance. Discuss your final model selection and the evidence that led you to this selection. If it is a classification problem, how did you choose a cut-off point for binary predictions? Did you consider different cut-off points?
-\end{quote}
 
 The models were tested on 10 \% data that was withheld from training the models. Accuracy, true positive, false positive, true negative and false negative rates were calculated for the entire test set, separate for regularized regression type (ridge regression vs.~lasso regression vs.~and elastic net) and predictors included (including frame embeddings vs.~not including frame embeddings). Additionally, these metrics are also calculated within individuals so that model performance can be evaluated per subject.
 
@@ -433,10 +417,6 @@ Model performance per individual for all models with and without frames as predi
 
 \hypertarget{discussion-conclusions}{%
 \section{Discussion \& Conclusions}\label{discussion-conclusions}}
-
-\begin{quote}
-Discussion/Conclusion (25pts): Discuss and summarize what you learned. Which variables were the most important in predicting your outcome? Was this expected or surprising? Were different models close in performance, or were there significant gaps in performance from different modeling approaches? Are there practical/applied findings that could help the field of your interest based on your work? If yes, what are they?
-\end{quote}
 
 Overall, model performance is better when frame embeddings are included as predictors, specifically, they improve the true positive rate and reduce false negatives significantly. The best regularized regression model on nearly all metrics and even within subjects is lasso regression with the tuning hyperparameters of \(\alpha = 1.0000\) and \(\lambda = 0.0000\). Even without frames embeddings as predictors, lasso regression performs best, with the tuning hyperparameters of \(\alpha = 1.0000\) and \(\lambda = 0.0002\). However, the predictive power of these models is severely limited, with a high false negative and low true positive rates.
 
